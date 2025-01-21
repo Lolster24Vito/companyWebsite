@@ -1,87 +1,31 @@
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
+/*this is a copy paste just in case someone opens just the html*/
+// SCSS Variables
+$atomSize: 50%;
+$nucleusSize: 25px;
+$orbitSize: 200px;
+$electronSize: 10px;
 
-body {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Full viewport height */
-    background: radial-gradient(circle, #f8eeb0 0%, #4a4a4a 80%); /* Yellowish white to dark gray */
-    font-family: Arial, sans-serif;
-}
+$protonColor: #2196f3;
+$electronColor: #ff9800;
+$orbitColor: rgba(255, 255, 255, 0.5);
 
-
-.fade-in {
-    animation: fadeIn 3s ease-in-out;
-    opacity: 0;
-    animation-fill-mode: forwards;
-    display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center;
-    gap: 20px; /* Space between text and image */
-}
-
-.text-container {
-    text-align: center;
-}
-
-.image-container {
-    position: relative;
-    width: 150px; /* Set a fixed width for the image container */
-    height: 150px; /* Set a fixed height for the image container */
-    margin-top: 20px;
-}
-
-.image-container img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%; /* Ensure the image fits the container */
-    height: 100%; /* Ensure the image fits the container */
-    object-fit: cover; /* Maintain aspect ratio, cover the container */
-    border-radius: 50%; /* Optional: make the image circular */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for styling */
-}
-
-.image-container .inner-image {
-    position: absolute;
-    top: 50%; /* Center the inner image vertically */
-    left: 50%; /* Center the inner image horizontally */
-    transform: translate(-50%, -50%); /* Center alignment */
-    width: 50%; /* Scale the inner image size */
-    height: 50%; /* Scale the inner image size */
-}
-
-.image-container .inner-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* Ensure the inner image fits without distortion */
-    border-radius: 50%; /* Optional: match circular styling */
-}
-
+// Mixins for Keyframes and Animation
 @mixin keyframes($animation-name) {
     @-webkit-keyframes #{$animation-name} {
-    @content;
-}
-@-moz-keyframes #{$animation-name} {
-@content;
-}
-@-ms-keyframes #{$animation-name} {
-@content;
-}
-@-o-keyframes #{$animation-name} {
-@content;
-}
-@keyframes #{$animation-name} {
-@content;
-}
+        @content;
+    }
+    @-moz-keyframes #{$animation-name} {
+        @content;
+    }
+    @-ms-keyframes #{$animation-name} {
+        @content;
+    }
+    @-o-keyframes #{$animation-name} {
+        @content;
+    }
+    @keyframes #{$animation-name} {
+        @content;
+    }
 }
 
 @mixin animation($str) {
@@ -92,121 +36,180 @@ body {
     animation: #{$str};
 }
 
-$atomSize : 300px;
-$nucleusSize : 25px;
-$orbitSize : 200px;
-$electronSize : 10px;
-
-$protonColor: #2196F3;
-$electronColor: #FF9800;
-$orbitColor: rgba(255,255,255,0.5);
-
-body{
-    text-align: center;
-    background:rgba(0,0,0,1);
-}
-#atom{
-    position:relative;
-    width: $atomSize;
-    height: $atomSize;
-    display:inline-block;
-    margin: 10px auto;
-}
-
-#nucleus, .orbit, .electron, .orbitTrain, .electronTrain{
-    position:absolute;
-    top:0;
-    right:0;
-    bottom:0;
-    left:0;
-    width:$nucleusSize;
-    height:$nucleusSize;
-    border-radius:50%;
-    margin: auto;
-}
-
-#nucleus{
-    background:$protonColor;
-    box-shadow: 0 0 15px $protonColor;
-    @include animation('shining 2s infinite linear');
-}
-
-.orbit:before {
-    content: " ";
-    position: absolute;
-    z-index: -1;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
-    border: 0.5px solid rgba(255,255,255,0.1);
-    border-radius:50%;
-}
-
-.orbit{
-
-    width:$orbitSize;
-    height:$orbitSize;
-    border:0;
-    transform-style: preserve-3d;
-    @include animation('orbitSpecial 1.5s infinite linear');
-
-.electron{
-    position:relative;
-    top: ($orbitSize - $electronSize)/2;
-    width:$electronSize;
-    height:$electronSize;
-    background:$electronColor;
-    box-shadow: 0 0 15px $electronColor;
-    border-radius:50%;
-    transform: translateX($orbitSize/2);
-    @include animation('electronAnimation 1.5s infinite linear');
-}
-}
-
-.orbit:nth-child(4){
-    transform:rotateY(65deg) rotateX(5deg);
-    animation-delay: -1s;
-.electron{
-    animation-delay: -1s;
-}
-}
-
-.orbit:nth-child(2){
-    transform:rotateY(65deg) rotateX(-54deg);
-    animation-delay: -1s;
-    animation-duration: 1s;
-.electron{
-    animation-duration: 1s;
-}
-}
-
-.orbit:nth-child(3){
-    transform:rotateY(65deg) rotateX(54deg);
+// Global Animations
+@include keyframes(fadeIn) {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 @include keyframes(electronAnimation) {
-0% { transform: rotateZ(0deg)  translateX($orbitSize/2) rotateZ(-0deg) rotateY(-65deg)}
-100% { transform: rotateZ(360deg) translateX($orbitSize/2) rotateZ(-360deg) rotateY(-65deg)}
+    0% {
+        transform: rotateZ(0deg) translateX($orbitSize / 2) rotateZ(0deg) rotateY(-65deg);
+    }
+    100% {
+        transform: rotateZ(360deg) translateX($orbitSize / 2) rotateZ(-360deg) rotateY(-65deg);
+    }
 }
 
 @include keyframes(orbitSpecial) {
-0% { border:0;
-    border-top: 1px solid $orbitColor}
-35% { border:0;
-    border-right: 1px solid $orbitColor}
-70% { border:0;
-    border-bottom: 1px solid $orbitColor}
-100% { border:0;
-    border-left: 1px solid $orbitColor}
+    0% {
+        border: 0;
+        border-top: 1px solid $orbitColor;
+    }
+    35% {
+        border: 0;
+        border-right: 1px solid $orbitColor;
+    }
+    70% {
+        border: 0;
+        border-bottom: 1px solid $orbitColor;
+    }
+    100% {
+        border: 0;
+        border-left: 1px solid $orbitColor;
+    }
 }
 
 @include keyframes(shining) {
-0% {
-    box-shadow: 0 0 0 transparent;
-} 50% {
-    box-shadow: 0 0 40px $protonColor;
-} 100% {
-    box-shadow: 0 0 0 transparent;
+    0% {
+        box-shadow: 0 0 0 transparent;
+    }
+    50% {
+        box-shadow: 0 0 40px $protonColor;
+    }
+    100% {
+        box-shadow: 0 0 0 transparent;
+    }
 }
+
+// Global Styles
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: radial-gradient(circle, #f8eeb0 0%, #4a4a4a 80%);
+    font-family: Arial, sans-serif;
+    color: white;
+    text-align: center;
+
+    &.fade-in {
+        @include animation("fadeIn 3s ease-in-out forwards");
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+}
+
+// Nested SCSS for Containers
+.text-container {
+    text-align: center;
+}
+
+.image-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin-top: 20px;
+
+    img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .inner-image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50%;
+        height: 50%;
+        object-fit: contain;
+        border-radius: 50%;
+    }
+}
+
+// Atom Animation Styles
+#atom {
+    position: relative;
+    width: $atomSize;
+    height: $atomSize;
+    display: inline-block;
+    margin: 10px auto;
+
+    #nucleus {
+        background: $protonColor;
+        box-shadow: 0 0 15px $protonColor;
+        @include animation("shining 2s infinite linear");
+    }
+
+    .orbit {
+        position: absolute;
+        top: -60%;
+        left: -60%;
+        width: $orbitSize;
+        height: $orbitSize;
+        border: 0;
+        transform-style: preserve-3d;
+        @include animation("orbitSpecial 1.5s infinite linear");
+
+        &:before {
+            content: " ";
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 0.5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .electron {
+            position: relative;
+            top: ($orbitSize - $electronSize) / 2;
+            width: $electronSize;
+            height: $electronSize;
+            background: $electronColor;
+            box-shadow: 0 0 15px $electronColor;
+            border-radius: 50%;
+            transform: translateX($orbitSize / 2);
+            @include animation("electronAnimation 1.5s infinite linear");
+        }
+    }
+
+    &:nth-child(4) {
+        transform: rotateY(65deg) rotateX(5deg);
+        animation-delay: -1s;
+
+        .electron {
+            animation-delay: -1s;
+        }
+    }
+
+    &:nth-child(2) {
+        transform: rotateY(65deg) rotateX(-54deg);
+        animation-delay: -1s;
+        animation-duration: 1s;
+
+        .electron {
+            animation-duration: 1s;
+        }
+    }
+
+    &:nth-child(3) {
+        transform: rotateY(65deg) rotateX(54deg);
+    }
 }
